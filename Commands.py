@@ -8,6 +8,7 @@ Commands = {
 	"help": [],
 	"lmgtfy": [str],
 	"ls": [],
+	"shorten": [str],
 	"spam": [int, str],
 	"tinyurl": [str],
 	"wiki": [str],

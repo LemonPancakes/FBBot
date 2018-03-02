@@ -131,11 +131,11 @@ class FBBot(Client):
 			c = c.replace(math_func, 'math.' + math_func)
 
 		try:
-			res = eval(c)
+			res = str(eval(c))
 		except Exception as e:
 			res = "Failed to evaluate expression: " + str(e) + ":\n" + c
 
-		self.send(Message(text=str(res)), **kwargs)
+		self.send(Message(text=res), **kwargs)
 
 
 	def chickenize(self, s, **kwargs):
@@ -154,16 +154,17 @@ class FBBot(Client):
 		self.send(Message(text=new), **kwargs)
 
 	def google(self, s, **kwargs):
-		link = "https://www.google.com/search?q=" + s
-		
+		link = "https://www.google.com/search?q=" + s.replace(' ', '+').strip()
+		self.shorten(link, **kwargs)
 		
 
 	def lmgtfy(self, s, **kwargs):
-		link = "http://lmgtfy.com/?q=" + s
+		link = "http://lmgtfy.com/?q=" + s.replace(' ', '+').strip()
 		self.shorten(link, **kwargs)
 
 	def youtube(self, s, **kwargs):
-		link = "https://www.youtube.com/results?search_query=" + s
+		link = "https://www.youtube.com/results?search_query=" + s.replace(' ', '+').strip()
+		self.shorten(link, **kwargs)
 		
 
 	def shorten(self, link, **kwargs):
@@ -176,5 +177,4 @@ class FBBot(Client):
 
 
 if __name__ == "__main__":
-	print("starting.")
 	FBBot(getpass(prompt="Username: "), getpass()).listen()

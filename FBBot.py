@@ -26,8 +26,7 @@ class FBBot(Client):
 	def onMessage(self, author_id, message_object, thread_id, thread_type, **kwargs):
 		self.markAsDelivered(author_id, thread_id)
 
-		# if author_id == self.uid and message_object.text[0] == '/':
-		if message_object.text[0] == '/':
+		if author_id == self.uid and message_object.text[0] == '/':
 			parsed = self.parse_command(message_object)
 			if parsed == None:
 				return

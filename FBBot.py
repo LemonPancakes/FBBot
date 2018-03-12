@@ -1,6 +1,6 @@
 # brotatotes 3/1/2018
 
-# A simple Facebook Messenger bot that provides a setup for adding and implementing 
+# A simple Facebook Messenger bot that provides a setup for adding and implementing
 # simple commands.
 # WARNING: these commands are susceptible to python injection so make sure they
 # can only be run by you or those you trust.
@@ -46,7 +46,7 @@ class FBBot(Client):
 		cmd = message_object.text[1:first_space].lower()
 
 		# not a real command
-		if not cmd in Commands: 
+		if not cmd in Commands:
 			return
 
 		args = []
@@ -67,7 +67,7 @@ class FBBot(Client):
 			# get the argument string (between previous space and next space)
 			# try to cast the arg into corresponing arg_type
 			arg = message_object.text[prev_space + 1:next_space]
-			try: 
+			try:
 				arg = arg_type(arg)
 			except Exception as e:
 				print("Invalid args:", e)
@@ -104,7 +104,7 @@ class FBBot(Client):
 			time.sleep(0.25) # TODO: make this an input to the command
 			self.send(Message(text=msg), **kwargs)
 
-	
+
 	def define(self, s, **kwargs):
 		try:
 			msg = self.dictionary.meaning(s)
@@ -149,13 +149,13 @@ class FBBot(Client):
 			else:
 				new += c.lower()
 			cap = not cap
-		
+
 		self.send(Message(text=new), **kwargs)
 
 	def google(self, s, **kwargs):
 		link = "https://www.google.com/search?q=" + s.replace(' ', '+').strip()
 		self.shorten(link, **kwargs)
-		
+
 
 	def lmgtfy(self, s, **kwargs):
 		link = "http://lmgtfy.com/?q=" + s.replace(' ', '+').strip()
@@ -164,12 +164,16 @@ class FBBot(Client):
 	def youtube(self, s, **kwargs):
 		link = "https://www.youtube.com/results?search_query=" + s.replace(' ', '+').strip()
 		self.shorten(link, **kwargs)
-		
+
 
 	def shorten(self, link, **kwargs):
 		msg = self.urlshortener.create(link)
 		if msg == None:
 			msg = "Unable to shorten link."
+		self.send(Message(text=msg), **kwargs)
+
+	def engrish(self, s, **kwargs):
+		msg = s.replace('l', 'r').replace('L', 'R')
 		self.send(Message(text=msg), **kwargs)
 
 

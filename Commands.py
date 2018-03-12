@@ -4,6 +4,7 @@ Commands = {
 	"calc": [str],
 	"chickenize": [str],
 	"define": [str],
+	"engrish": [str],
 	"google": [str],
 	"help": [],
 	"lmgtfy": [str],

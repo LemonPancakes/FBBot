@@ -173,6 +173,11 @@ class FBBot(Client):
 		self.send(Message(text=msg), **kwargs)
 
 	def engrish(self, s, **kwargs):
+		if len(s) > 1 and s[-2] not in 'lL':
+			if s[-1] == 'l':
+				s = s[:-1] + 'ru'
+			elif s[-1] == 'L':
+				s = s[:-1] + 'RU'
 		msg = s.replace('l', 'r').replace('L', 'R')
 		self.send(Message(text=msg), **kwargs)
 
